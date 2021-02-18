@@ -1,0 +1,10 @@
+/* Import variables and any utils */
+@import './vars.scss';
+
+/* Import component styles */
+@import './components/index.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+}
