@@ -1,0 +1,9 @@
+.table-row {
+  &:hover {
+    background: rgb(238, 238, 238);
+    cursor: pointer;
+  }
+  &__column {
+    padding: 5px;
+  }
+}

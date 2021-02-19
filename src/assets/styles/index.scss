@@ -1,10 +1,18 @@
+/* Import roboto font from CDN */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
 /* Import variables and any utils */
 @import './vars.scss';
 
 /* Import component styles */
 @import './components/index.scss';
 
-* {
-  margin: 0;
-  padding: 0;
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 80vw;
 }

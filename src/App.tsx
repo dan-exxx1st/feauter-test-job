@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Options from './layouts/Options';
-import Table from './layouts/Table';
+import TableWithData from './layouts/TableWithData';
 
 const App = () => {
+  const [option, setOption] = useState<string>('big');
+
   return (
     <div className="container">
       <Options />
-      <Table />
+      {option && option.length > 1 ? <TableWithData option={option} /> : null}
     </div>
   );
 };
