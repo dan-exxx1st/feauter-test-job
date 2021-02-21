@@ -7,7 +7,7 @@ import { ITableData, ITableHeadData, SortType } from '../utils/types';
 interface IProps {
   data: ITableData[];
   theadData: ITableHeadData[];
-  activeSort: ITableHeadData;
+  activeSort?: ITableHeadData;
   _handleTheadClick?: (id: number, sort: SortType) => void;
   _selectUser?: (data: ITableData) => void;
 }
@@ -23,7 +23,7 @@ const Table: FC<IProps> = (props) => {
           <thead>
             <tr>
               {theadData.map((data) => {
-                const active = data.id === activeSort.id;
+                const active = activeSort && data.id === activeSort.id;
                 return (
                   <TableHeadItem
                     key={data.id}

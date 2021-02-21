@@ -3,18 +3,32 @@
     font-size: 16px;
   }
 
+  &__add-btn {
+    background: none;
+    cursor: pointer;
+    padding: 5px;
+    border: 1px solid #323232;
+    border-radius: 10px;
+    outline: none;
+
+    &:hover {
+      background: rgb(245, 245, 245);
+    }
+  }
+
   &__title {
     font-size: 24px;
     margin-bottom: 20px;
   }
 
   & > div {
-    max-height: 80vh;
+    max-height: 70vh;
     overflow-y: scroll;
   }
 
   &__data {
     width: calc(80vw - 20px);
+
     user-select: none;
     border-collapse: collapse;
 

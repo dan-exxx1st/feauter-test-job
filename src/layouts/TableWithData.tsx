@@ -2,7 +2,7 @@ import React, { FC, useCallback, useEffect, useState } from 'react';
 
 import Api from '../api';
 
-import { Pagination, Table, UserData } from '../components';
+import { AddForm, Pagination, Table, UserData } from '../components';
 import { SortTableData } from '../utils/helpers';
 import { ITableData, ITableHeadData, SortType } from '../utils/types';
 
@@ -14,10 +14,11 @@ const TableWithData: FC<IProps> = (props) => {
   const { option } = props;
 
   const [tableData, setTableData] = useState<ITableData[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [page, setPage] = useState<number>(0);
-  const [pageCount, setPageCount] = useState<number>(0);
+  const [page, setPage] = useState(0);
+  const [pageCount, setPageCount] = useState(0);
+  const [addFormOpen, setAddFormOpen] = useState(false);
 
   const [theadData, setTheadData] = useState<ITableHeadData[]>([
     { id: 1, text: 'id', sort: 'more' },
@@ -27,11 +28,9 @@ const TableWithData: FC<IProps> = (props) => {
     { id: 5, text: 'phone', sort: 'more' },
   ]);
 
-  const [activeSort, setActiveSort] = useState<ITableHeadData>({
-    id: 1,
-    text: 'id',
-    sort: 'more',
-  });
+  const [activeSort, setActiveSort] = useState<ITableHeadData | undefined>(
+    undefined,
+  );
 
   const [selectedUser, setSelectedUser] = useState<ITableData | null>(null);
 
@@ -43,7 +42,7 @@ const TableWithData: FC<IProps> = (props) => {
     setIsLoading(true);
     const thead = theadData.find((thead) => thead.id === id)!;
     const index = theadData.indexOf(thead);
-    const isActive = activeSort.id === id;
+    const isActive = activeSort && activeSort.id === id;
     const newSort = {
       ...thead,
       sort: isActive ? sort : sort === 'more' ? 'less' : 'more',
@@ -59,8 +58,14 @@ const TableWithData: FC<IProps> = (props) => {
   };
 
   const _handleChangePage = (page: number) => setPage(page);
-
   const _selectUser = (data: ITableData) => setSelectedUser(data);
+  const _handleAddFormOpen = () => setAddFormOpen(!addFormOpen);
+
+  const _handleAddData = (data: ITableData) => {
+    setTableData([data, ...tableData]);
+
+    _handleAddFormOpen();
+  };
 
   const fetchData = useCallback(async () => {
     setError(null);
@@ -89,6 +94,14 @@ const TableWithData: FC<IProps> = (props) => {
 
   return (
     <>
+      {addFormOpen ? (
+        <AddForm onClick={_handleAddData} />
+      ) : (
+        <button className="table__add-btn" onClick={_handleAddFormOpen}>
+          Добавить
+        </button>
+      )}
+
       <Table
         data={paginatedData}
         activeSort={activeSort}

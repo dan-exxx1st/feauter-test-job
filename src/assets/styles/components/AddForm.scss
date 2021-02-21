@@ -1,0 +1,29 @@
+.add-form {
+  margin: 10px 0;
+  border-collapse: collapse;
+  &__field {
+    border: none;
+    outline: none;
+  }
+
+  &__error {
+    color: red;
+  }
+
+  &__btn {
+    background: none;
+    cursor: pointer;
+    padding: 5px;
+    border: 1px solid #323232;
+    border-radius: 5px;
+    outline: none;
+
+    &:hover {
+      background: rgb(245, 245, 245);
+    }
+  }
+}
+
+td {
+  padding: 5px;
+}

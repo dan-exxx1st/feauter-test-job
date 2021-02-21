@@ -1,0 +1,23 @@
+.options {
+  margin-top: 40px;
+  max-width: 600px;
+  &__items {
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__item {
+    padding: 5px;
+    border: 1px solid #323232;
+    border-radius: 5px;
+    font-size: 16px;
+    background: none;
+    cursor: pointer;
+
+    &:hover {
+      background: rgb(245, 245, 245);
+    }
+  }
+}

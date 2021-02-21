@@ -2,8 +2,9 @@ import { ITableData } from './types';
 
 export const SortTableData = (
   data: ITableData[],
-  activeSort: { id: number; text: string; sort: string },
+  activeSort?: { id: number; text: string; sort: string },
 ) => {
+  if (!activeSort) return data;
   const sortedData = data.sort((a, b) => {
     switch (activeSort.text) {
       case 'id': {
@@ -49,3 +50,16 @@ export const SortTableData = (
   });
   return sortedData;
 };
+
+export const validateNumber = (str: string) => str.match(/^[0-9]+$/gm) !== null;
+export const validateString = (str: string) =>
+  str.match(/^[a-zA-Z]+$/gm) !== null;
+export const validateEmail = (str: string) => {
+  return str.match(
+    // eslint-disable-next-line no-control-regex
+    /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/gm,
+  );
+};
+
+export const validatePhoneNumber = (str: string) =>
+  str.length === 10 && str.match(/([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/);
