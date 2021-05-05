@@ -14,7 +14,7 @@ const TableWithData: FC<IProps> = (props) => {
   const { option } = props;
 
   const [tableData, setTableData] = useState<ITableData[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState(0);
   const [pageCount, setPageCount] = useState(0);
@@ -68,14 +68,20 @@ const TableWithData: FC<IProps> = (props) => {
   };
 
   const fetchData = useCallback(async () => {
+    let data: ITableData[] | Error | undefined;
     setError(null);
+
     if (option === 'small') {
-      const data = await Api.getSmallData();
-      setTableData(data);
+      data = await Api.getSmallData();
     } else if (option === 'big') {
-      const data = await Api.getBigData();
+      data = await Api.getBigData();
+    }
+
+    if (data instanceof Error) {
+      setError(data.message);
+    } else if (data) {
       setTableData(data);
-      setPageCount(data.length / 50);
+      if (data.length > 50) setPageCount(data.length / 50);
     }
 
     setIsLoading(false);
